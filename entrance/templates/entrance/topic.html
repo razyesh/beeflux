@@ -1,0 +1,39 @@
+{% extends 'home/base.html' %}
+{% load static%}
+{% block content %}
+        <section class="banner inner-page">
+        	<div class="banner-img"><img src="{% static 'images/banner/quiz.jpg' %}" alt=""></div>
+            <div class="page-title">	
+	            <div class="container">
+                    <h1>Quiz</h1>
+                </div>
+            </div>
+        </section>
+        <section class="breadcrumb white-bg">
+        	<div class="container">
+            	<ul>
+                	<li><a href="#">Home</a></li>
+                    <li><a href="#">Quiz</a></li>
+                </ul>
+            </div>
+        </section>
+        <section class="quiz-view">
+        	<div class="container">
+                <div class="quiz-title">
+                    <h2>Choose Your Field</h2>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                </div>
+                    <div class="col-sm-8 col-md-9">
+                    	<div class="qustion-main">
+                            <div class="qustion-box">
+                                {% for topic in topics %}
+                                <div class="start-btn">
+                                        <a href="{% url 'subtopic' topic.id %}" class="btn">{{topic}}</a>
+                                    </div><br>
+                                {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        {% endblock %}
