@@ -14,14 +14,14 @@ class SubTopic(models.Model):
 
 
 class QuestionSet(models.Model):
+    title = models.ForeignKey(Topic, related_name='questionset', on_delete=models.PROTECT)
+    sub_title = models.ForeignKey(SubTopic, related_name='questionset', on_delete= models.PROTECT)
     name = models.CharField(max_length=10)
 
     def __str__(self):
         return self.name
 
 class Question(models.Model):
-    qtype = models.ForeignKey(Topic, related_name='question', on_delete=models.PROTECT)
-    sub_type = models.ForeignKey(SubTopic, related_name='question', on_delete=models.PROTECT)
     questionset = models.ForeignKey(QuestionSet, related_name='question', on_delete=models.PROTECT)
     question = models.CharField(max_length=100)
 

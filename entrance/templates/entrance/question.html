@@ -1,6 +1,7 @@
 {% extends 'home/base.html' %}
 {% load static %}
 {% block content %}
+
 <section class="banner inner-page">
         <div class="banner-img"><img src="{% static 'images/banner/quiz.jpg' %}" alt=""></div>
         <div class="page-title">	
@@ -29,58 +30,47 @@
                     	<div id="countdown_stop"></div>
                         <div class="qustion-list">
                         	<div class="qustion-slide fill">
-                            	<div class="qustion-number">Question 1</div>
-                            	<span>2</span>
+                                {% for question in questions %}
+                                <div class="qustion-slide"></div>
+                                <div class="qustion-number" href="{% url 'questions' question.id %}">Question {{question.id}}</div>
+                                {% endfor %}
                             </div>
-                            <div class="qustion-slide active">
-                            	<div class="qustion-number">Question 2</div>
-                            	<span>2</span>
-                            </div>
-                            <div class="qustion-slide">
-                            	<div class="qustion-number">Question 3</div>
-                            	<span>2</span>
-                            </div>
-                            <div class="qustion-slide">
-                            	<div class="qustion-number">Question 4</div>
-                            	<span>2</span>
-                            </div>
-                            <div class="qustion-slide">
-                            	<div class="qustion-number">Question 5</div>
-                            	<span>2</span>
-                            </div>
-                            <div class="qustion-slide">
-                            	<div class="qustion-number">Question 6</div>
-                            	<span>2</span>
-                            </div>
-                            <div class="qustion-slide">
-                            	<div class="qustion-number">Question 7</div>
-                            	<span>2</span>
-                            </div>
-                            <div class="qustion-slide">
-                            	<div class="qustion-number">Question 8</div>
-                            	<span>2</span>
-                            </div>
-                            <div class="qustion-slide">
-                            	<div class="qustion-number">Question 9</div>
-                            	<span>2</span>
-                            </div>
-                            <div class="qustion-slide">
-                            	<div class="qustion-number">Question 10</div>
-                            	<span>2</span>
-                            </div>
+                            
                         </div>
                     </div>
                 <div class="col-sm-8 col-md-9">
                     <div class="qustion-main">
                         <div class="qustion-box">
-                            {% for question in questions %}
-                            <div class="start-btn">
-                                    {{question}}
-                                </div><br>
+                                {% for question in questions%}
+                                <h3 class="qustion-number" style="color:black;">{{question.question}}</h3><br><br>
+                                
+                                {% for answer in answers %}
+                                    
+                                    {% if answer.question.id == question.id %}
+                                        {% if answer.correct == True %}
+                                            <button onclick="changeColor(this)" class="btn btn-light">{{answer}}</button><br><br>
+                                        {% else %}
+                                            <button onclick="changeBackColor(this)" class="btn btn-light">{{answer}}</button><br><br>
+                                        {% endif %}
+                                    {% endif %}
+                                    
                             {% endfor %}
+                            {% endfor %}
+                                
                     </div>
                 </div>
             </div>
         </div>
+        <script>
+            function changeColor(btn) {
+  btn.style.backgroundColor = "green";
+  alert("Correct")
+}
+function changeBackColor(btn) {
+  btn.style.backgroundColor = "red";
+  alert("Wrong")
+}
+        </script>
     </section>
+
 {% endblock %}
